@@ -19,6 +19,9 @@ import { hideBin } from 'yargs/helpers';
 import { fortunateCow } from './src/fortunateCow.js';
 import boxen from 'boxen';
 
+const message = fortunateCow();
+console.log(boxen(message, { padding: 1, borderStyle: 'round' }));
+
 // Parse CLI flags using yargs.
 const argv = yargs(hideBin(process.argv))
   .option('category', {

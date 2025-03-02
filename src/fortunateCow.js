@@ -3,7 +3,6 @@
  * @file fortunateCow.js
  * @description Exports a function that returns a cowsay message with a random fortune.
  * The module demonstrates data encapsulation and filtering: fortunes can be filtered by category.
- * For the student assignment, some parts of the code are marked for you to implement.
  * @module fortunateCow
  */
 
@@ -22,24 +21,13 @@ function loadFortunes() {
 /**
  * Filters fortunes based on category.
  *
- * For the student assignment, please remove the example filtering logic below
- * and replace it with your own implementation if desired.
- *
  * @param {Array<Object>} fortunes - Array of fortune objects.
  * @param {string} [category] - Optional category to filter by.
  * @returns {Array<Object>} The filtered array of fortune objects.
  */
 function filterFortunes(fortunes, category) {
-  // TODO: BEGIN STUDENT ASSIGNMENT
-  // TODO: If there is no category, return the original array
-  true; // replace this with your code here
-  // TODO: END STUDENT ASSIGNMENT
-
-  // TODO: BEGIN STUDENT ASSIGNMENT
-  // TODO: Create an array of fortunes matching category
-  true; // replace this with your code here
-  // TODO: END STUDENT ASSIGNMENT
-  return fortunes;
+  if (!category) return fortunes;
+  return fortunes.filter(fortune => fortune.category && fortune.category.toLowerCase() === category.toLowerCase());
 }
 
 /**
@@ -49,11 +37,8 @@ function filterFortunes(fortunes, category) {
  * @returns {string} The text of a randomly selected fortune.
  */
 function getRandomFortune(fortunes) {
-  // TODO: BEGIN STUDENT ASSIGNMENT
-  // TODO: msg must be changed to be a random fortune
-  const msg = `Get a random fortune from the ${fortunes.length} fortunes`;  // replace this with your code here
-  // TODO: END STUDENT ASSIGNMENT
-  return msg;
+  const randomIndex = Math.floor(Math.random() * fortunes.length);
+  return fortunes[randomIndex].text;
 }
 
 /**
@@ -71,22 +56,14 @@ function getRandomFortune(fortunes) {
 export function fortunateCow(category) {
   let fortunes = loadFortunes();
 
-  // If a filtering option is provided, filter the fortunes.
   if (category) {
     fortunes = filterFortunes(fortunes, category);
   }
 
-  // If no fortunes match the filters, return a default message.
   if (!fortunes.length) {
     return "No fortune found matching your criteria.";
   }
 
   const fortune = getRandomFortune(fortunes);
-
-  // TODO: BEGIN STUDENT ASSIGNMENT
-  // TODO: Replace msg by calling the say function
-  const fortuneMessage = `${fortune} and then a cow using its say() function`;  // replace this with your code here
-  // TODO: END STUDENT ASSIGNMENT
-  return fortuneMessage;
-
+  return say({ text: fortune });
 }
